@@ -67,9 +67,7 @@ bind_move () {
 		tmux $bind "$1" \
 			if-shell "tmux join-pane -t :$2" \
 				"" \
-				"new-window -dt :$2; join-pane -t :$2; select-pane -t top-left; kill-pane" \\\;\
-			select-layout \\\;\
-			select-layout -E
+				"new-window -dt :$2; join-pane -t :$2; select-pane -t top-left; kill-pane"
 	else
 		tmux $bind "$1" \
 			if-shell "tmux new-window -dt :$2" \
@@ -91,8 +89,7 @@ bind_layout () {
 		if [ -z "$legacy" ]
 		then
 			tmux $bind "$1" \
-				select-layout "$2" \\\;\
-				select-layout -E
+				select-layout "$2"
 		else
 			tmux $bind "$1" \
 				run-shell "tmux select-layout \"$2\"" \\\;\
@@ -229,10 +226,6 @@ tmux $bind "${mod}C" \
 # Define hooks {{{
 if [ -z "$legacy" ]
 then
-	# Autorefresh layout after deleting a pane.
-	tmux set-hook -g after-split-window "select-layout; select-layout -E"
-	tmux set-hook -g pane-exited "select-layout; select-layout -E"
-
 	# Autoselect layout after creating new window.
 	if [ -n "${default:-}" ]
 	then
