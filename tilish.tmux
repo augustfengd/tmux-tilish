@@ -155,12 +155,12 @@ bind_layout "${mod}V" 'even-horizontal'
 bind_layout "${mod}t" 'tiled'
 bind_layout "${mod}z" 'zoom'
 
-# Spread the window panes evenly via Alt + =.
+# Refresh the current layout (e.g. after deleting a pane).
 if [ -z "$legacy" ]
 then
-	tmux $bind "${mod}=" select-layout -E
+	tmux $bind "${mod}r" select-layout -E
 else
-	tmux $bind "${mod}=" run-shell 'tmux select-layout'\\\; send escape
+	tmux $bind "${mod}r" run-shell 'tmux select-layout'\\\; send escape
 fi
 
 # Switch to pane via Alt + hjkl.
